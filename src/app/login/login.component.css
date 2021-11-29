@@ -1,0 +1,81 @@
+html, body{
+    font-family: Lato, Arial;
+    padding: 0;
+    margin: 0;
+    background-color: rgb(5, 5, 190);
+}
+
+
+
+
+
+.formulario{
+    width: 23%;
+    height: 70%;
+    background-color: rgba(255, 255, 255, 0.863);
+    position: relative;
+    margin-top: 10%;
+    margin-left: 40%;
+    border-radius: 7%;
+}
+
+.form{
+    width: 50%;
+    height: 50px;
+    max-width: 600px;
+    margin-top: 25%;
+    position: relative;
+    overflow: hidden;
+}
+.form input{
+    width: 100%;
+    height: 100%;
+    background: none;
+    color: black;
+    padding-top: 10px;
+    margin-left: 5px;
+    border: none;
+    outline: 0px;
+    
+}
+.form .lbl-nombre{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-bottom: 1px solid #c0bcbc;
+}
+.form .lbl-nombre:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 100%;
+    border-bottom: 3px solid black;
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
+}
+.text-nomb{
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    transition: all 0.3s ease;
+    color: black;
+}
+.form input:focus + .lbl-nombre .text-nomb,.form input:valid + .lbl-nombre .text-nomb{
+    transform: translateY(-110%);
+    font-size: 14px;
+    color: black;
+}
+.form input:focus + .lbl-nombre:after, .form input:valid + .lbl-nombre:after{
+    transform: translateX(0%);
+}
+@media only screen and (min-width:320px) and (max-width:768px){
+ .form{
+    width:85%;
+}
+    }
+
