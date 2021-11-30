@@ -11,7 +11,7 @@ html, body{
 
 .formulario{
     width: 23%;
-    height: 70%;
+    height: 45%;
     background-color: rgba(255, 255, 255, 0.863);
     position: relative;
     margin-top: 10%;
@@ -23,7 +23,8 @@ html, body{
     width: 50%;
     height: 50px;
     max-width: 600px;
-    margin-top: 25%;
+    margin-top: 15%;
+    margin-left: 25%;
     position: relative;
     overflow: hidden;
 }
@@ -78,4 +79,13 @@ html, body{
     width:85%;
 }
     }
+
+.boton {
+    margin-top: 15%; 
+    background-color: rgb(79, 173, 79); 
+    height: 10%; width: 50%; 
+    position: relative; 
+    margin-left:24%; 
+    border-radius: 10%;
+}
 
