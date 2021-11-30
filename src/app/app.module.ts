@@ -11,6 +11,18 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ConsumoDatosComponent } from './core/consumo-datos/consumo-datos.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { TablahtmlComponent } from './tablahtml/tablahtml.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DatapickerComponent } from './datapicker/datapicker.component';
+import { FiltrotabComponent } from './filtrotab/filtrotab.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -19,14 +31,26 @@ import { ConsumoDatosComponent } from './core/consumo-datos/consumo-datos.compon
     LoginComponent,
     HeaderComponent,
     FooterComponent,
-    ConsumoDatosComponent  
+    ConsumoDatosComponent,
+    TablahtmlComponent,
+    DatapickerComponent,
+    FiltrotabComponent  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatTableModule,
     BrowserAnimationsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    HighchartsChartModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

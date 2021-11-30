@@ -1,6 +1,8 @@
 <div class="contenedorTabla"> 
     <h1>Tabas en HTML</h1>
 
+    <span class="material-icons">download</span>
+
         <mat-tab-group mat-align-tabs="start">
             <mat-tab label="Vista Tabular">
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -65,7 +67,26 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
             </mat-tab>
-            <mat-tab label="Vista Grafica">Content 2</mat-tab>
+            <mat-tab label="Vista Grafica">Content 2
+                <p>grafico works!</p>
+             <highcharts-chart
+             [Highcharts]="Highcharts"
+             [options]="chartOptions"
+             style="width: 100%; height: 400px;display: block;"
+             >
+            </highcharts-chart>
+            <figure class="highcharts-figure">
+            <div id="container"></div>
+            <p class="highcharts-description">
+              This demo shows how breakpoints can be defined in order to
+              change the chart options depending on the screen width. All
+              charts automatically scale to the container size, but in this
+              case we also change the positioning of the legend and axis
+              elements to accomodate smaller screens.
+            </p>
+            </figure>     
+
+            </mat-tab>       
           </mat-tab-group>
 </div>
 
