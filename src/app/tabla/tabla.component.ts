@@ -1,39 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 export interface PeriodicElement {
-  Periodo: string;
-  Paquete: string;
-  Usuario: string;
-  Sistema: string;
-  Empresa: string;
-  Metodo: string;
-  InBatch: number; 
-  WebService: number;
-  Procesados:number;
+    index: number;
+    Periodo: string;
+    Paquete: string;
+    Usuario: string;
+    Sistema: string;
+    Empresa: string;
+    Metodo: string;
+    InBatch: number; 
+    WebService: number;
+    Procesados:number;
 }
 
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {Periodo: '2021-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-
+  {index: 1, Periodo: '2021-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 2, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 3, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 4, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 5, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 6, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 7, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 8, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 9, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 10, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 11, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 12, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 13, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
+  {index: 14, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
 ];
 
 
@@ -43,19 +38,27 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./tabla.component.css']
 })
 export class TablaComponent implements OnInit {
-  displayedColumns: string[] = ['Periodo', 'Paquete', 'Usuario', 'Sistema','Empresa','Metodo','InBatch','WebService','Procesados'];
+  displayedColumns: string[] = ['index', 'Periodo', 'Paquete', 'Usuario', 'Sistema','Empresa','Metodo','InBatch','WebService','Procesados'];
   dataSource = ELEMENT_DATA;
   Highcharts: typeof Highcharts = Highcharts;
+  HighchartsPie: typeof Highcharts = Highcharts;
+
+  chartOptionsPie: Highcharts.Options = {
+    series: [{
+      data: [1, 2, 3],
+      type: 'pie'
+    }]
+  };
 
   chartOptions: Highcharts.Options = {
 
     title: {
-        text: 'Highcharts responsive chart'
+        text: 'Usuarios'
     },
   
-    subtitle: {
-        text: 'Resize the frame or click buttons to change appearance'
-    },
+    // subtitle: {
+    //     text: 'Resize the frame or click buttons to change appearance'
+    // },
   
     legend: {
         align: 'right',

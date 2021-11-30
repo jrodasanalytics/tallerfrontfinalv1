@@ -1,0 +1,17 @@
+.cabecera{
+    box-shadow: 0 0 7px rgb(0 0 0 / 10%) !important;
+    background: #FFF;
+}
+
+.logo{
+    background: #FFF;
+    text-align: center;
+    line-height: 52px;
+}
+
+.logo-img {
+    width: 29%;
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: middle;
+}

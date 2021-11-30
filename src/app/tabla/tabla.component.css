@@ -1,12 +1,17 @@
 table {
-    width: 90%;
+    width: 100%;
     margin:auto;
 
   }
 
+  .contenedorTabla {
+      width: 90%;
+      margin: 0 auto;
+  }
+
   th{
-      background-color: crimson;
-      color:#fff;
+      background-color: #171717;
+      color:#FFF;
       padding:10px 20px;
 
   }
@@ -19,7 +24,8 @@ tbody td:nth-child(even){
     margin-top: 15%;
     padding-top: 15%;
     height: 100%;
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
 }
 .highcharts-figure,
 .highcharts-data-table table {
@@ -67,3 +73,16 @@ tbody td:nth-child(even){
 span{
     margin-right: auto;
 }
+
+
+.material-icons {
+    margin-right: 15px !important;
+}
+
+.wrp-actions {
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
