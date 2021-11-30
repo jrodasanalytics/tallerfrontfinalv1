@@ -1,45 +1,117 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
-export interface PeriodicElement {
-    index: number;
-    Periodo: string;
-    Paquete: string;
-    Usuario: string;
-    Sistema: string;
-    Empresa: string;
-    Metodo: string;
-    InBatch: number; 
-    WebService: number;
-    Procesados:number;
-}
-
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {index: 1, Periodo: '2021-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 2, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 3, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 4, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 5, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 6, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 7, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 8, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 9, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 10, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 11, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 12, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 13, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-  {index: 14, Periodo: '2010-10', Paquete: 'GPE',Usuario: 'pjhuaman@analytics.pe',Sistema: 'Hydrogen',Empresa:'Telefonica', Metodo:'Automatico', InBatch: 19, WebService: 1212,Procesados: 123},
-];
-
+import { Product } from './product';
+import { ProductService } from './productservice';
+import { Input } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
 
 @Component({
-  selector: 'app-tabla',
-  templateUrl: './tabla.component.html',
-  styleUrls: ['./tabla.component.css']
-})
+    selector: 'app-tabla',
+    templateUrl: './tabla.component.html',
+    styleUrls: ['./tabla.component.scss'],
+    styles: [`
+    :host ::ng-deep .p-dialog .product-image {
+        width: 150px;
+        margin: 0 auto 2rem auto;
+        display: block;
+    }
+  `],
+  providers: [MessageService,ConfirmationService]
+  })
+  
 export class TablaComponent implements OnInit {
-  displayedColumns: string[] = ['index', 'Periodo', 'Paquete', 'Usuario', 'Sistema','Empresa','Metodo','InBatch','WebService','Procesados'];
-  dataSource = ELEMENT_DATA;
+
+    productDialog!: boolean;
+
+    products!: Product[];
+  
+    product!: Product;
+  
+    selectedProducts!: Product[];
+  
+    submitted!: boolean;
+  
+    statuses!: any[];
+  
+    cols!: any[];
+  
+    _selectedColumns!: any[];
+
+    loading: boolean = true;
+  
+    constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  
+    ngOnInit() {
+
+      this.products = this.productService.getProducts();
+
+      this.loading = false;
+  
+      this.statuses = [
+          {label: 'INSTOCK', value: 'instock'},
+          {label: 'LOWSTOCK', value: 'lowstock'},
+          {label: 'OUTOFSTOCK', value: 'outofstock'}
+      ];
+      this.cols = [
+          { field: 'id', header: 'No.', type:'numeric'},
+          { field: 'periodo', header: 'Periodo', type:'text'},
+          { field: 'usuario', header: 'Usuario', type:'text'},
+          { field: 'paquete', header: 'Paquete', type:'text'},
+          { field: 'sistema', header: 'Sistema', type:'text'},
+          { field: 'empresa', header: 'Empresa', type:'text'},
+          { field: 'metodo', header: 'Método', type:'text'},
+          { field: 'inbatch', header: 'InBatch', type:'numeric'},
+          { field: 'webservice', header: 'WebService', type:'numeric'},
+          { field: 'procesados', header: 'Procesados', type:'numeric'},
+      ];
+      this._selectedColumns = this.cols;
+    }
+  
+    hideDialog() {
+        this.productDialog = false;
+        this.submitted = false;
+    }
+  
+    findIndexById(id: number): number {
+        let index = -1;
+        for (let i = 0; i < this.products.length; i++) {
+            if (this.products[i].id === id) {
+                index = i;
+                break;
+            }
+        }
+  
+        return index;
+    }
+  
+    createId(): string {
+        let id = '';
+        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for ( var i = 0; i < 5; i++ ) {
+            id += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return id;
+    }
+  
+      @Input() get selectedColumns(): any[] {
+          return this._selectedColumns;
+      }
+  
+      set selectedColumns(val: any[]) {
+          //restore original order
+          this._selectedColumns = this.cols.filter(col => val.includes(col));
+      }
+
+      clear(table: Table) {
+        table.clear();
+    }
+
+    getEventValue($event:any) :string {
+        return $event.target.value;
+      } 
+
   Highcharts: typeof Highcharts = Highcharts;
   HighchartsPie: typeof Highcharts = Highcharts;
 
@@ -168,11 +240,4 @@ export class TablaComponent implements OnInit {
     }]
 
   };
-
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

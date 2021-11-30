@@ -14,6 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RatingModule } from 'primeng/rating';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { FormsModule } from '@angular/forms';
     DropdownModule,
     RatingModule,
     MultiSelectModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

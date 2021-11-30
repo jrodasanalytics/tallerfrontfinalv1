@@ -1,4 +1,3 @@
-
 <div class="contenedorTabla"> 
     <!-- <h1>Tabas en HTML</h1> -->
         <br><br>
@@ -14,75 +13,47 @@
         <mat-tab-group mat-align-tabs="start">
             <mat-tab label="Vista Tabular">
                 <br>
-                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            
-                    <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
-                      <!-- Periodo Column -->
-                    <ng-container matColumnDef="index">
-                        <th mat-header-cell *matHeaderCellDef> N° </th>
-                        <td mat-cell *matCellDef="let element"> {{element.index}} </td>
-                    </ng-container>
-
-                    <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
-                      <!-- Periodo Column -->
-                    <ng-container matColumnDef="Periodo">
-                    <th mat-header-cell *matHeaderCellDef> Periodo </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Periodo}} </td>
-                    </ng-container>
-              
-                    <!-- Paquete Column -->
-                    <ng-container matColumnDef="Paquete">
-                        <th mat-header-cell *matHeaderCellDef> Paquete </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Paquete}} </td>
-                    </ng-container>
-              
-                    <!-- Usuario Column -->
-                    <ng-container matColumnDef="Usuario">
-                      <th mat-header-cell *matHeaderCellDef> Usuario </th>
-                      <td mat-cell *matCellDef="let element"> {{element.Usuario}} </td>
-                    </ng-container>
-              
-                    <!-- Sistema Column -->
-                    <ng-container matColumnDef="Sistema">
-                      <th mat-header-cell *matHeaderCellDef> Sistema </th>
-                      <td mat-cell *matCellDef="let element"> {{element.Sistema}} </td>
-                    </ng-container>
-        
-                    <!-- Empresa Column -->
-                    <ng-container matColumnDef="Empresa">
-                        <th mat-header-cell *matHeaderCellDef> Empresa </th>
-                        <td mat-cell *matCellDef="let element"> {{element.Empresa}} </td>
-                    </ng-container>
-        
-                    <!-- Metodo Column -->
-                    <ng-container matColumnDef="Metodo">
-                        <th mat-header-cell *matHeaderCellDef> Metodo </th>
-                        <td mat-cell *matCellDef="let element"> {{element.Metodo}} </td>
-                    </ng-container>
-        
-                    <!-- InBatch Column -->
-                    <ng-container matColumnDef="InBatch">
-                        <th mat-header-cell *matHeaderCellDef> InBatch </th>
-                        <td mat-cell *matCellDef="let element"> {{element.InBatch}} </td>
-                    </ng-container>
-        
-                    <!-- WebService Column -->
-                    <ng-container matColumnDef="WebService">
-                        <th mat-header-cell *matHeaderCellDef> WebService </th>
-                        <td mat-cell *matCellDef="let element"> {{element.WebService}} </td>
-                    </ng-container>
-        
-                    <!-- Procesados Column -->
-                    <ng-container matColumnDef="Procesados">
-                        <th mat-header-cell *matHeaderCellDef> Procesados </th>
-                        <td mat-cell *matCellDef="let element"> {{element.Procesados}} </td>
-                    </ng-container>
-              
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
+                <p-toast></p-toast>
+                <div class="card">
+                    <p-toolbar styleClass="p-mb-4">
+                        <ng-template pTemplate="left">
+                            <button pButton pRipple label="" icon="pi pi-info-circle" class="p-button-help"></button>
+                        </ng-template>
+                        <ng-template pTemplate="right">
+                            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+                        </ng-template>
+                    </p-toolbar>
+                    <p-table #dt [value]="products" [rows]="5" [paginator]="true" [resizableColumns]="true"
+                        responsiveLayout="scroll" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        [showCurrentPageReport]="true" [columns]="selectedColumns" [reorderableColumns]="true"
+                        styleClass="p-datatable-gridlines">
+                        <ng-template pTemplate="caption">
+                            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                                selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns">
+                            </p-multiSelect>
+                            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th pResizableColumn *ngFor="let col of columns" pReorderableColumn pSortableColumn={{col.field}}>
+                                    {{col.header}}
+                                    <p-sortIcon field={{col.field}}></p-sortIcon>
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <p-columnFilter type={{col.type}} field={{col.field}} display="menu"></p-columnFilter>
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <tr>
+                                <td *ngFor="let col of columns">
+                                    {{rowData[col.field]}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
             </mat-tab>
             <mat-tab label="Vista Grafica">
                 <br>

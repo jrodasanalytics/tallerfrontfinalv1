@@ -24,6 +24,19 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
+import {TableModule} from 'primeng/table';
+import { ToolbarModule } from 'primeng/toolbar';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DropdownModule } from 'primeng/dropdown';
+import { RatingModule } from 'primeng/rating';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -51,7 +64,22 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatCheckboxModule,
     ReactiveFormsModule,
     HighchartsChartModule,
-    MatTooltipModule
+    MatTooltipModule,
+    BrowserModule,
+    AppRoutingModule,
+    TableModule,
+    HttpClientModule,
+    ToolbarModule,
+    DialogModule,
+    ConfirmDialogModule,
+    ToastModule,
+    RadioButtonModule,
+    FileUploadModule,
+    DropdownModule,
+    RatingModule,
+    MultiSelectModule,
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
