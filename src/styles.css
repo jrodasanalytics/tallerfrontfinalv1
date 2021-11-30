@@ -1,18 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgba(73, 73, 207, 0.918); }
 
 /* Estilo Cabecera */
 .cabecera{
     width: 100%;
-    height: 10%;
+    height: 12%;
     position: relative;
-    background-color: aqua;
+    background-color: rgb(148, 255, 106);
 }
 
 .logo{
     width: 25%;
     height: 100%;
-    background-color: red;
 }
