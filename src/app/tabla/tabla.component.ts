@@ -6,6 +6,7 @@ import { Input } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { filter } from 'rxjs/internal/operators/filter';
 
 @Component({
     selector: 'app-tabla',
@@ -27,16 +28,22 @@ export class TablaComponent implements OnInit {
 
     products!: Product[];
   
-    product!: Product;
-  
-    selectedProducts!: Product[];
-  
     submitted!: boolean;
-  
-    statuses!: any[];
+
+    empresas!: any[];
+    _selectedEmpresas!: any[];
+    usuarios!: any[];
+    _selectedUsuarios!: any[];
+    sistemas!: any[];
+    _selectedSistemas!: any[];
+    paquetes!: any[];
+    _selectedPaquetes!: any[];
+    metodos!: any[]
+    _selectedMetodos!: any[];
+
+    selectors!: any[];
   
     cols!: any[];
-  
     _selectedColumns!: any[];
 
     loading: boolean = true;
@@ -48,25 +55,29 @@ export class TablaComponent implements OnInit {
       this.products = this.productService.getProducts();
 
       this.loading = false;
-  
-      this.statuses = [
-          {label: 'INSTOCK', value: 'instock'},
-          {label: 'LOWSTOCK', value: 'lowstock'},
-          {label: 'OUTOFSTOCK', value: 'outofstock'}
-      ];
+
       this.cols = [
-          { field: 'id', header: 'No.', type:'numeric'},
-          { field: 'periodo', header: 'Periodo', type:'text'},
-          { field: 'usuario', header: 'Usuario', type:'text'},
-          { field: 'paquete', header: 'Paquete', type:'text'},
-          { field: 'sistema', header: 'Sistema', type:'text'},
-          { field: 'empresa', header: 'Empresa', type:'text'},
-          { field: 'metodo', header: 'Método', type:'text'},
-          { field: 'inbatch', header: 'InBatch', type:'numeric'},
-          { field: 'webservice', header: 'WebService', type:'numeric'},
-          { field: 'procesados', header: 'Procesados', type:'numeric'},
+          { field: 'id', header: 'No.', type:'numeric', display_selector:'none', display_basic_filter:'inline'},
+          { field: 'periodo', header: 'Periodo', type:'text', display_selector:'none', display_basic_filter:'inline'},
+          { field: 'usuario', header: 'Usuario', type:'text', display_selector:'inline', display_basic_filter:'none', selector:0},
+          { field: 'paquete', header: 'Paquete', type:'text', display_selector:'inline', display_basic_filter:'none', selector:1},
+          { field: 'sistema', header: 'Sistema', type:'text', display_selector:'inline', display_basic_filter:'none', selector:2},
+          { field: 'empresa', header: 'Empresa', type:'text', display_selector:'inline', display_basic_filter:'none', selector:3},
+          { field: 'metodo', header: 'Método', type:'text', display_selector:'inline', display_basic_filter:'none', selector:4},
+          { field: 'inbatch', header: 'InBatch', type:'numeric', display_selector:'none', display_basic_filter:'inline'},
+          { field: 'webservice', header: 'WebService', type:'numeric', display_selector:'none', display_basic_filter:'inline'},
+          { field: 'procesados', header: 'Procesados', type:'numeric', display_selector:'none', display_basic_filter:'inline'},
       ];
       this._selectedColumns = this.cols;
+
+      this.empresas = this.productService.getEmpresas();
+      this._selectedEmpresas = this.empresas;
+
+      this.usuarios = this.productService.getUsuarios();
+      this.sistemas = this.productService.getSistemas();
+      this.paquetes = this.productService.getPaquetes();
+      this.metodos = this.productService.getMetodos();
+      this.selectors = [this.usuarios, this.paquetes, this.sistemas, this.empresas, this.metodos];
     }
   
     hideDialog() {
@@ -95,149 +106,158 @@ export class TablaComponent implements OnInit {
         return id;
     }
   
-      @Input() get selectedColumns(): any[] {
-          return this._selectedColumns;
-      }
-  
-      set selectedColumns(val: any[]) {
-          //restore original order
-          this._selectedColumns = this.cols.filter(col => val.includes(col));
-      }
+    @Input() get selectedColumns(): any[] {
+        return this._selectedColumns;
+    }
 
-      clear(table: Table) {
+    set selectedColumns(val: any[]) {
+        //restore original order
+        this._selectedColumns = this.cols.filter(col => val.includes(col));
+    }
+
+    @Input() get selectedEmpresas(): any[] {
+        return this._selectedEmpresas;
+    }
+
+    set selectedEmpresas(val: any[]) {
+        //restore original order
+        this._selectedEmpresas = this.empresas.filter(col => val.includes(col));
+    }
+
+    clear(table: Table) {
         table.clear();
     }
 
-    getEventValue($event:any) :string {
+    getEventValue($event:any) : string {
         return $event.target.value;
-      } 
+    }  
 
-  Highcharts: typeof Highcharts = Highcharts;
-  HighchartsPie: typeof Highcharts = Highcharts;
+    Highcharts: typeof Highcharts = Highcharts;
+    HighchartsPie: typeof Highcharts = Highcharts;
 
-  chartOptionsPie: Highcharts.Options = {
-    series: [{
-      data: [1, 2, 3],
-      type: 'pie'
-    }]
-  };
+    chartOptionsPie: Highcharts.Options = {
+        series: [{
+        data: [1, 2, 3],
+        type: 'pie'
+        }]
+    };
 
-  chartOptions: Highcharts.Options = {
+    chartOptions: Highcharts.Options = {
 
-    title: {
-        text: 'Usuarios'
-    },
-  
-    // subtitle: {
-    //     text: 'Resize the frame or click buttons to change appearance'
-    // },
-  
-    legend: {
-        align: 'right',
-        verticalAlign: 'middle',
-        layout: 'vertical'
-    },
-  
-    xAxis: {
-        categories: ['Apples', 'Oranges', 'Bananas'],
-        labels: {
-            x: -10
-        }
-    },
-  
-    yAxis: {
-        allowDecimals: false,
         title: {
-            text: 'Amount'
-        }
-    },
-  
-    series: [{
-        name: 'Christmas Eve',
-        data: [1, 4, 3],
-        type: 'column'
-    }, {
-        name: 'Christmas Day before dinner',
-        data: [6, 4, 2],
-        type: 'column'
-    }, {
-        name: 'Christmas Day after dinner',
-        data: [8, 4, 3],
-        type: 'column'
-    }],
-  
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    align: 'center',
-                    verticalAlign: 'bottom',
-                    layout: 'horizontal'
+            text: 'Usuarios'
+        },
+    
+        // subtitle: {
+        //     text: 'Resize the frame or click buttons to change appearance'
+        // },
+    
+        legend: {
+            align: 'right',
+            verticalAlign: 'middle',
+            layout: 'vertical'
+        },
+    
+        xAxis: {
+            categories: ['Apples', 'Oranges', 'Bananas'],
+            labels: {
+                x: -10
+            }
+        },
+    
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Amount'
+            }
+        },
+    
+        series: [{
+            name: 'Christmas Eve',
+            data: [1, 4, 3],
+            type: 'column'
+        }, {
+            name: 'Christmas Day before dinner',
+            data: [6, 4, 2],
+            type: 'column'
+        }, {
+            name: 'Christmas Day after dinner',
+            data: [8, 4, 3],
+            type: 'column'
+        }],
+    
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
                 },
-                yAxis: {
-                    labels: {
-                        align: 'left',
-                        x: 0,
-                        y: -5
+                chartOptions: {
+                    legend: {
+                        align: 'center',
+                        verticalAlign: 'bottom',
+                        layout: 'horizontal'
                     },
-                    title: {
-                        text: null
+                    yAxis: {
+                        labels: {
+                            align: 'left',
+                            x: 0,
+                            y: -5
+                        },
+                        title: {
+                            text: null
+                        }
+                    },
+                    credits: {
+                        enabled: false
+                    }
+                }
+            }]
+        }
+    };
+    Highcharts2: typeof Highcharts = Highcharts;
+
+    chartOptions2: Highcharts.Options = {
+        title: {
+            text: 'Browser<br>shares<br>2017',
+            align: 'center',
+            verticalAlign: 'middle',
+            y: 60
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white'
                     }
                 },
-                credits: {
-                    enabled: false
-                }
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%'],
+                size: '110%'
             }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            innerSize: '50%',
+            data: [
+                ['slice', 1],
+                ['slice', 2],
+                ['slice', 3],
+                
+            ]
         }]
-    }
-  };
-  Highcharts2: typeof Highcharts = Highcharts;
 
-  chartOptions2: Highcharts.Options = {
-    title: {
-        text: 'Browser<br>shares<br>2017',
-        align: 'center',
-        verticalAlign: 'middle',
-        y: 60
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            dataLabels: {
-                enabled: true,
-                distance: -50,
-                style: {
-                    fontWeight: 'bold',
-                    color: 'white'
-                }
-            },
-            startAngle: -90,
-            endAngle: 90,
-            center: ['50%', '75%'],
-            size: '110%'
-        }
-    },
-    series: [{
-        type: 'pie',
-        name: 'Browser share',
-        innerSize: '50%',
-        data: [
-            ['slice', 1],
-            ['slice', 2],
-            ['slice', 3],
-             
-        ]
-    }]
-
-  };
+    };
 }

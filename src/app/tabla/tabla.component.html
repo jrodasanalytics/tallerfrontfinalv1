@@ -23,24 +23,43 @@
                             <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
                         </ng-template>
                     </p-toolbar>
-                    <p-table #dt [value]="products" [rows]="5" [paginator]="true" [resizableColumns]="true"
-                        responsiveLayout="scroll" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+                    <p-table #dt [value]="products" [rows]="10" [paginator]="true" [resizableColumns]="true"
+                        [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+                        responsiveLayout="scroll" [(selection)]="selectedColumns" [rowHover]="true" dataKey="id"
                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                         [showCurrentPageReport]="true" [columns]="selectedColumns" [reorderableColumns]="true"
                         styleClass="p-datatable-gridlines">
                         <ng-template pTemplate="caption">
-                            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                                selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns">
-                            </p-multiSelect>
-                            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+                            <div>
+                                <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                                    selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns">
+                                </p-multiSelect>
+                                &nbsp;
+                                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+                                <input style = "font-size: 22px; float: right;  font-family: Inter; font-size: 1rem; font-weight: normal;"
+                                pInputText type="text" (input)="dt.filterGlobal(getEventValue($event), 'contains')" placeholder="Buscar" />
+                            </div>
                         </ng-template>
                         <ng-template pTemplate="header" let-columns>
                             <tr>
-                                <th pResizableColumn *ngFor="let col of columns" pReorderableColumn pSortableColumn={{col.field}}>
+                                <th *ngFor="let col of columns" pResizableColumn pReorderableColumn pSortableColumn={{col.field}}>
                                     {{col.header}}
                                     <p-sortIcon field={{col.field}}></p-sortIcon>
-                                    <div class="p-d-flex p-jc-between p-ai-center">
-                                        <p-columnFilter type={{col.type}} field={{col.field}} display="menu"></p-columnFilter>
+                                    <div style="display: {{col.display_basic_filter}}">
+                                        <p-columnFilter type={{col.type}} field="{{col.field}}" display="menu"></p-columnFilter>
+                                    </div>
+                                    <div style="display: {{col.display_selector}}">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-columnFilter field="{{col.field}}" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto">
+                                                <p-multiSelect [ngModel]="value" [options]="selectors[col.selector]" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                                    <ng-template let-option pTemplate="item">
+                                                        <div class="p-multiselect-representative-option">
+                                                            <span class="p-ml-1">{{option.name}}</span>
+                                                        </div>
+                                                    </ng-template>
+                                                </p-multiSelect>
+                                            </p-columnFilter>
+                                        </ng-template>
                                     </div>
                                 </th>
                             </tr>
@@ -50,6 +69,11 @@
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
                                 </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="10">No customers found.</td>
                             </tr>
                         </ng-template>
                     </p-table>
